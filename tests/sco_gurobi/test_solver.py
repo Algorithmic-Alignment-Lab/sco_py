@@ -3,7 +3,7 @@ import unittest
 import gurobipy as grb
 import numpy as np
 
-from sco_gurobi.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
+from expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
 from sco_gurobi.prob import Prob
 from sco_gurobi.solver import Solver
 from sco_gurobi.variable import Variable

@@ -1,5 +1,5 @@
-# sco OSQP
-Sequential Convex Optimization with OSQP
+# sco
+Sequential Convex Optimization
 
 ## Quickstart
 (ToDo: talk about installation)
