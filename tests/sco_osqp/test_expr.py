@@ -3,9 +3,9 @@ import unittest
 
 import numpy as np
 
-from sco_OSQP.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
+from sco_osqp.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
                            HingeExpr, LEqExpr, QuadExpr)
-from sco_OSQP.variable import Variable
+from sco_osqp.variable import Variable
 
 # fmt: on
 
