@@ -3,7 +3,7 @@ from collections import defaultdict
 
 import numpy as np
 
-import expr as sco_osqp_expr
+import sco.expr as sco_osqp_expr
 import sco_osqp.osqp_utils as osqp_utils
 from sco_osqp.osqp_utils import (OSQPLinearConstraint, OSQPLinearObj,
                                  OSQPQuadraticObj, OSQPVar)

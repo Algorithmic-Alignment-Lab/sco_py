@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
+from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
                            HingeExpr, LEqExpr, QuadExpr)
 from sco_osqp.osqp_utils import OSQPLinearConstraint, OSQPVar
 from sco_osqp.prob import Prob
@@ -12,7 +12,6 @@ from sco_osqp.variable import Variable
 # fmt: on
 
 f = lambda x: np.array([[x]])
-
 
 class TestProb(unittest.TestCase):
     def test_add_obj_expr_quad(self):
@@ -261,11 +260,10 @@ class TestProb(unittest.TestCase):
         osqp_vars = np.array([[osqp_var]])
         var = Variable(osqp_vars)
         prob.add_var(var)
-
         prob._add_to_lin_objs_and_cnts_from_abs_expr(abs_expr, var)
-
         prob.optimize(add_convexified_terms=True)
         var.update()
+
         self.assertTrue(np.allclose(var.get_value(), np.array([[-4]])))
 
     def test_convexify_eq(self):

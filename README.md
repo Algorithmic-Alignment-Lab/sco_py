@@ -9,3 +9,4 @@ Simply run the `pytest` command from the directory root!
 
 ## TODO Log
 1. Write out better comments and documentation for what's going on here.
+1. Consider using pytest-cov to determine testing coverage.

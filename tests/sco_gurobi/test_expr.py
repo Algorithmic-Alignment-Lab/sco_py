@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr,
+from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr,
                              Expr, HingeExpr, LEqExpr, QuadExpr)
 from sco_gurobi.variable import Variable
 

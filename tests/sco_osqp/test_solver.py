@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
+from sco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
 from sco_osqp.osqp_utils import OSQPVar
 from sco_osqp.prob import Prob
 from sco_osqp.solver import Solver
