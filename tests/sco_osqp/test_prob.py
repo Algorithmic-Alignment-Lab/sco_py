@@ -5,9 +5,9 @@ import numpy as np
 
 from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
                            HingeExpr, LEqExpr, QuadExpr)
-from sco_osqp.osqp_utils import OSQPLinearConstraint, OSQPVar
-from sco_osqp.prob import Prob
-from sco_osqp.variable import Variable
+from sco.sco_osqp.osqp_utils import OSQPLinearConstraint, OSQPVar
+from sco.sco_osqp.prob import Prob
+from sco.sco_osqp.variable import Variable
 
 # fmt: on
 

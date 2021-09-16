@@ -5,7 +5,7 @@ import numpy as np
 
 from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
                            HingeExpr, LEqExpr, QuadExpr)
-from sco_osqp.variable import Variable
+from sco.sco_osqp.variable import Variable
 
 # fmt: on
 
