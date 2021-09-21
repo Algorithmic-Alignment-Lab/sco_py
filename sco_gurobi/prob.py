@@ -11,7 +11,6 @@ from sco.expr import (AbsExpr, AffExpr, CompExpr, EqExpr, HingeExpr,
 
 GRB = grb.GRB
 
-
 class Prob(object):
     """
     Sequential convex programming problem with a scalar objective. A solution is
@@ -297,7 +296,6 @@ class Prob(object):
         The Gurobi constraints are the linear constraints which have already
         been added to the model when constraints were added to this problem.
         """
-
         self._model.optimize()
 
         try:
@@ -316,6 +314,7 @@ class Prob(object):
     def update_obj(self, penalty_coeff=0.0):
         self._lazy_spawn_grb_cnts()
         grb_exprs = []
+        
         for bound_expr in self._quad_obj_exprs + self._approx_obj_exprs:
             grb_expr, grb_cnts = self._expr_to_grb_expr(bound_expr)
             # self._grb_penalty_cnts.extend(grb_cnts)
@@ -402,6 +401,8 @@ class Prob(object):
         The penalty approximation of the non-linear constraints
         (self._nonlin_cnt_exprs) is saved in self._penalty_exprs
         """
+        # if len(self._nonlin_cnt_exprs) > 0:
+        #     import ipdb; ipdb.set_trace()
         self._approx_obj_exprs = [
             bexpr.convexify(degree=2) for bexpr in self._nonquad_obj_exprs
         ]

@@ -84,7 +84,7 @@ def helper_test_prob(
     solv.solve(prob, method="penalty_sqp")
     x_sol = var.get_value()
 
-    ut.assertTrue(np.allclose(x_sol, x_true, atol=1e-4))
+    ut.assertTrue(np.allclose(x_sol, x_true, atol=5e-4))
 
 
 class TestSolver(unittest.TestCase):

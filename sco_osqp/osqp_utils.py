@@ -20,6 +20,9 @@ class OSQPVar(object):
         self._upper_bound = ub
         self.val = val
 
+    def __lt__(self, other_osqp_var):
+        return self.var_name < other_osqp_var.var_name
+
     def __repr__(self):
         return f"OSQPVar with name {self.var_name}"
         # return f"OSQPVar with name {self.var_name}, lb={self._lower_bound}, ub={self._upper_bound}, val={self.val}"
@@ -116,14 +119,16 @@ def optimize(
     # OSQPVars that are part of the QP. This will take the form of a mapping from OSQPVar to
     # index within the x vector.
     var_to_index_dict = {}
-    idx = 0
-    for osqp_var in osqp_vars:
+    osqp_var_list = list(osqp_vars)
+    # Make sure to sort this list to get a canonical ordering of variables to make 
+    # matrix construction easier
+    osqp_var_list.sort()  
+    for idx, osqp_var in enumerate(osqp_var_list):
         var_to_index_dict[osqp_var] = idx
-        idx += 1
     num_osqp_vars = len(osqp_vars)
 
     # Construct the q-vector by looping through all the linear objectives
-    q_vec = np.zeros(idx)
+    q_vec = np.zeros(num_osqp_vars)
     for lin_obj in osqp_lin_objs:
         q_vec[var_to_index_dict[lin_obj.osqp_var]] += lin_obj.coeff
 
@@ -135,9 +140,16 @@ def optimize(
         for i in range(quad_obj.coeffs.shape[0]):
             idx2 = var_to_index_dict[quad_obj.osqp_vars1[i]]
             idx1 = var_to_index_dict[quad_obj.osqp_vars2[i]]
-            P_mat[idx1, idx2] += quad_obj.coeffs[i]
-            if idx1 != idx2:
-                P_mat[idx2, idx1] += quad_obj.coeffs[i]
+            if idx1 > idx2:
+                P_mat[idx2, idx1] += 0.5 * quad_obj.coeffs[i]
+            elif idx1 < idx2:
+                P_mat[idx1, idx2] += 0.5 * quad_obj.coeffs[i]
+            else:
+                P_mat[idx1, idx2] += quad_obj.coeffs[i]
+            
+            # P_mat[idx1, idx2] += quad_obj.coeffs[i]
+            # if idx1 != idx2:
+            #     P_mat[idx2, idx1] += quad_obj.coeffs[i]
 
     # Next, setup the A-matrix and l and u vectors
     A_mat = np.zeros((num_osqp_vars + len(osqp_lin_cnt_exprs), num_osqp_vars))
@@ -165,11 +177,10 @@ def optimize(
     P_mat_sparse = scipy.sparse.csc_matrix(P_mat)
     A_mat_sparse = scipy.sparse.csc_matrix(A_mat)
 
-    # from IPython import embed
-
-    # embed()
-
     m = osqp.OSQP()
+
+    # import ipdb; ipdb.set_trace()
+
     m.setup(
         P=P_mat_sparse,
         q=q_vec,
@@ -183,7 +194,9 @@ def optimize(
         warm_start=False,
         verbose=False,
     )
+
     solve_res = m.solve()
+    # import ipdb; ipdb.set_trace()
 
     return (solve_res, var_to_index_dict)
 

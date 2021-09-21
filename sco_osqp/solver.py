@@ -117,7 +117,7 @@ class Solver(object):
 
                 exact_merit_improve = merit - new_merit
                 merit_improve_ratio = exact_merit_improve / approx_merit_improve
-
+                
                 if verbose:
                     print(
                         (

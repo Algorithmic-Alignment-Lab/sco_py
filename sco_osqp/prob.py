@@ -216,8 +216,6 @@ class Prob(object):
             )
 
     def _add_to_lin_objs_and_cnts_from_aff_expr(self, aff_expr, var):
-        # NOTE: There don't seem to be any constraints added by an affine
-        # expression
         osqp_vars = var.get_osqp_vars()
         A_mat = aff_expr.A
 
@@ -384,6 +382,8 @@ class Prob(object):
         for bound_expr in self._quad_obj_exprs + self._approx_obj_exprs:
             self._add_osqp_objs_and_cnts_from_expr(bound_expr)
 
+        # import ipdb; ipdb.set_trace()
+
         for i, bound_expr in enumerate(self._penalty_exprs):
             self._update_nonlin_cnt_and_add_to_qp(bound_expr, i)
 
@@ -415,8 +415,9 @@ class Prob(object):
         """
         osqp_var_arr = np.empty(shape, dtype=object)
         for x in np.nditer(osqp_var_arr, op_flags=["readwrite"], flags=["refs_ok"]):
-            # Create a new variable that's bound between 0 and np.inf
-            new_pos_var = OSQPVar("pos_osqp_var", 0.0, np.inf, 0.0)
+            # Create a new variable that's bound between 0 and np.inf, and name it so that
+            # it so it starts with a z and will get sorted to the end
+            new_pos_var = OSQPVar("z+_pos_osqp_var", 0.0, np.inf, 0.0)
             # Add it to the set keeping track of all OSQP vars
             self._osqp_vars.add(new_pos_var)
             x[...] = new_pos_var
@@ -492,6 +493,8 @@ class Prob(object):
         The penalty approximation of the non-linear constraints
         (self._nonlin_cnt_exprs) is saved in self._penalty_exprs
         """
+        # if len(self._nonquad_obj_exprs) > 0:
+        #     import ipdb; ipdb.set_trace()
         self._approx_obj_exprs = [
             bexpr.convexify(degree=2) for bexpr in self._nonquad_obj_exprs
         ]
