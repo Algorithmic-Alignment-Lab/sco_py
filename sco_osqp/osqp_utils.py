@@ -102,7 +102,7 @@ class OSQPLinearConstraint(object):
     def get_all_vars(self):
         return self.osqp_vars.tolist()
 
-
+# @profile
 def optimize(
     osqp_vars: List[OSQPVar],
     sco_vars: List[Variable],
@@ -146,10 +146,6 @@ def optimize(
                 P_mat[idx1, idx2] += 0.5 * quad_obj.coeffs[i]
             else:
                 P_mat[idx1, idx2] += quad_obj.coeffs[i]
-            
-            # P_mat[idx1, idx2] += quad_obj.coeffs[i]
-            # if idx1 != idx2:
-            #     P_mat[idx2, idx1] += quad_obj.coeffs[i]
 
     # Next, setup the A-matrix and l and u vectors
     A_mat = np.zeros((num_osqp_vars + len(osqp_lin_cnt_exprs), num_osqp_vars))
@@ -178,9 +174,7 @@ def optimize(
     A_mat_sparse = scipy.sparse.csc_matrix(A_mat)
 
     m = osqp.OSQP()
-
-    # import ipdb; ipdb.set_trace()
-
+    
     m.setup(
         P=P_mat_sparse,
         q=q_vec,
@@ -188,6 +182,7 @@ def optimize(
         sigma=1e-08,
         l=l_vec,
         u=u_vec,
+        # eps_abs = 1e-03,
         eps_rel=1e-05,
         polish=True,
         adaptive_rho=False,
@@ -196,6 +191,7 @@ def optimize(
     )
 
     solve_res = m.solve()
+
     # import ipdb; ipdb.set_trace()
 
     return (solve_res, var_to_index_dict)
@@ -207,3 +203,7 @@ def update_osqp_vars(var_to_osqp_indices_dict, solver_values):
     """
     for osqp_var in var_to_osqp_indices_dict.keys():
         osqp_var.val = solver_values[var_to_osqp_indices_dict[osqp_var]]
+
+def print_osqp_vars_and_sol(solve_res_x, var_to_index_dict):
+    for key, idx in var_to_index_dict.items():
+        print(f"{key}, {solve_res_x[idx]}")

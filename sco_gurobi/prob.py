@@ -303,6 +303,7 @@ class Prob(object):
         except Exception as e:
             print(e)
             print(("Model status:", self._model.status))
+        # import ipdb; ipdb.set_trace()
         self._callback()
 
     def print_grb_vals(self):

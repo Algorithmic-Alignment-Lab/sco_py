@@ -320,6 +320,7 @@ class Prob(object):
             curr_cnt_expr = OSQPLinearConstraint(
                 osqp_vars[inds, 0], A_mat[i, inds], curr_lb, curr_ub
             )
+
             self._osqp_lin_cnt_exprs.append(curr_cnt_expr)
 
     def _add_to_quad_and_lin_objs_from_quad_expr(self, quad_expr, var):
