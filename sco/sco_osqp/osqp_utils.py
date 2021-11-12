@@ -109,6 +109,9 @@ def optimize(
     osqp_quad_objs: List[OSQPQuadraticObj],
     osqp_lin_objs: List[OSQPLinearObj],
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
+    eps_abs: float = 1e-05,
+    eps_rel: float = 1e-08,
+    max_iter: int = 1000000,
 ):
     """
     Calls the OSQP optimizer on the current QP approximation with a given
@@ -187,17 +190,20 @@ def optimize(
         sigma=5e-10,
         l=l_vec,
         u=u_vec,
-        eps_abs = 1e-05,
-        eps_rel=1e-08,
+        eps_abs=eps_abs,
+        eps_rel=eps_rel,
         delta=1e-07,
         polish=True,
         adaptive_rho=False,
         warm_start=True,
         verbose=False,
-        max_iter=9250,
+        max_iter=max_iter,
     )
 
     solve_res = m.solve()
+
+    if solve_res.info.status_val == -2:
+        raise RuntimeError("ERROR! OSQP Solver hit max iteration limit. Either reduce your tolerances or increase the max iterations!")
 
     return (solve_res, var_to_index_dict)
 
