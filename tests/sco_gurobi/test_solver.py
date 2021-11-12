@@ -4,9 +4,9 @@ import gurobipy as grb
 import numpy as np
 
 from sco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
-from sco_gurobi.prob import Prob
-from sco_gurobi.solver import Solver
-from sco_gurobi.variable import Variable
+from sco.sco_gurobi.prob import Prob
+from sco.sco_gurobi.solver import Solver
+from sco.sco_gurobi.variable import Variable
 
 GRB = grb.GRB
 

@@ -6,8 +6,8 @@ import numpy as np
 
 from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr,
                              Expr, HingeExpr, LEqExpr, QuadExpr)
-from sco_gurobi.prob import PosGRBVarManager, Prob
-from sco_gurobi.variable import Variable
+from sco.sco_gurobi.prob import PosGRBVarManager, Prob
+from sco.sco_gurobi.variable import Variable
 
 # fmt: on
 
