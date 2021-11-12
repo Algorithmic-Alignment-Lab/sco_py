@@ -107,8 +107,8 @@ class Solver(object):
                 new_merit = prob.get_value(penalty_coeff)
 
                 approx_merit_improve = merit - model_merit
-                # if not approx_merit_improve:
-                #    approx_merit_improve += 1e-10
+                if not approx_merit_improve:
+                   approx_merit_improve += 1e-10
 
                 ## we converge if one of the violated constraint groups
                 ## is below the minimum improvement
@@ -208,6 +208,7 @@ class Solver(object):
                     return True
 
             sqp_iter = sqp_iter + 1
+
 
     def _bad_model(self, approx_merit_improve):
         """

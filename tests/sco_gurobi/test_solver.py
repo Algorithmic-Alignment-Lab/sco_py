@@ -81,8 +81,9 @@ def helper_test_prob(
     for cnt in cnts:
         prob.add_cnt_expr(cnt)
 
-    solv.solve(prob, method="penalty_sqp")
+    solv.solve(prob, method="penalty_sqp", verbose=False)
     x_sol = var.get_value()
+
     ut.assertTrue(np.allclose(x_sol, x_true, atol=1e-4))
 
 

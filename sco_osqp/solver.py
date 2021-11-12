@@ -14,7 +14,8 @@ class Solver(object):
         """
         self.improve_ratio_threshold = 0.25
         self.min_trust_region_size = 1e-4
-        self.min_approx_improve = 1e-4
+        # self.min_approx_improve = 1e-4
+        self.min_approx_improve = 1e-8
         self.max_iter = 50
         self.trust_shrink_ratio = 0.1
         self.trust_expand_ratio = 1.5
@@ -104,8 +105,8 @@ class Solver(object):
                 new_merit = prob.get_value(penalty_coeff)
 
                 approx_merit_improve = merit - model_merit
-                # if not approx_merit_improve:
-                #    approx_merit_improve += 1e-10
+                if not approx_merit_improve:
+                   approx_merit_improve += 1e-12
 
                 # we converge if one of the violated constraint groups
                 # is below the minimum improvement
@@ -116,8 +117,9 @@ class Solver(object):
                     violated = approx_improve_vec > -np.inf
 
                 exact_merit_improve = merit - new_merit
+
                 merit_improve_ratio = exact_merit_improve / approx_merit_improve
-                
+
                 if verbose:
                     print(
                         (

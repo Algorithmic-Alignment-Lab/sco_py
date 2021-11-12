@@ -179,7 +179,7 @@ class Prob(object):
         # run he callback before returning true
         osqp_utils.update_osqp_vars(var_to_index_dict, solve_res.x)
         self._update_vars()
-        self._callback()
+        self._callback() # TODO: Modify to get the visualizer in a better spot.
         return True
 
     def _reset_hinge_cnts(self):
@@ -383,8 +383,6 @@ class Prob(object):
         for bound_expr in self._quad_obj_exprs + self._approx_obj_exprs:
             self._add_osqp_objs_and_cnts_from_expr(bound_expr)
 
-        # import ipdb; ipdb.set_trace()
-
         for i, bound_expr in enumerate(self._penalty_exprs):
             self._update_nonlin_cnt_and_add_to_qp(bound_expr, i)
 
@@ -535,12 +533,14 @@ class Prob(object):
                     )
                 )
             return value
-        value = 0.0
-        for bound_expr in self._quad_obj_exprs + self._nonquad_obj_exprs:
-            value += np.sum(np.sum(bound_expr.eval()))
-        for bound_expr in self._nonlin_cnt_exprs:
-            cnt_vio = self._compute_cnt_violation(bound_expr)
-            value += penalty_coeff * np.sum(cnt_vio)
+        else:
+            value = 0.0
+            for bound_expr in self._quad_obj_exprs + self._nonquad_obj_exprs:
+                value += np.sum(np.sum(bound_expr.eval()))
+            for bound_expr in self._nonlin_cnt_exprs:
+                cnt_vio = self._compute_cnt_violation(bound_expr)
+                value += penalty_coeff * np.sum(cnt_vio)
+
         return value
 
     # @profile

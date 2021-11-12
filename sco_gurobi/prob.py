@@ -254,12 +254,6 @@ class Prob(object):
                 g_var = g_var[inds]
                 obj += np.sum((g_var - val).T.dot(g_var - val))
 
-                # for i in range(g_var.shape[0]):
-                #     if g_var[i].var_name == "(can1-pose-(0, 2))":
-                #         import pdb
-
-                #         pdb.set_trace()
-
                 # for i in np.ndindex(g_var.shape):
                 #    if not np.isnan(val[i]):
                 #            obj += g_var[i]*g_var[i] - 2*val[i]*g_var[i] + val[i]*val[i]
@@ -297,13 +291,11 @@ class Prob(object):
         been added to the model when constraints were added to this problem.
         """
         self._model.optimize()
-
         try:
             self._update_vars()
         except Exception as e:
             print(e)
             print(("Model status:", self._model.status))
-        # import ipdb; ipdb.set_trace()
         self._callback()
 
     def print_grb_vals(self):
@@ -443,13 +435,15 @@ class Prob(object):
                     )
                 )
             return value
-        value = 0.0
-        for bound_expr in self._quad_obj_exprs + self._nonquad_obj_exprs:
-            value += np.sum(np.sum(bound_expr.eval()))
-        for bound_expr in self._nonlin_cnt_exprs:
-            cnt_vio = self._compute_cnt_violation(bound_expr)
-            value += penalty_coeff * np.sum(cnt_vio)
-        return value
+        else:
+            value = 0.0
+            for bound_expr in self._quad_obj_exprs + self._nonquad_obj_exprs:
+                value += np.sum(np.sum(bound_expr.eval()))
+            for bound_expr in self._nonlin_cnt_exprs:
+                cnt_vio = self._compute_cnt_violation(bound_expr)
+                value += penalty_coeff * np.sum(cnt_vio)
+
+            return value
 
     # @profile
     def _compute_cnt_violation(self, bexpr):

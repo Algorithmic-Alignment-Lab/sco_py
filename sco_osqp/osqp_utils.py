@@ -151,12 +151,16 @@ def optimize(
     A_mat = np.zeros((num_osqp_vars + len(osqp_lin_cnt_exprs), num_osqp_vars))
     l_vec = np.zeros(num_osqp_vars + len(osqp_lin_cnt_exprs))
     u_vec = np.zeros(num_osqp_vars + len(osqp_lin_cnt_exprs))
+
     # First add all the linear constraints
+    # However, note that this isn't entirely straightforward: some 
     row_num = 0
     for lin_constraint in osqp_lin_cnt_exprs:
         l_vec[row_num] = lin_constraint.lb
         u_vec[row_num] = lin_constraint.ub
         for i in range(lin_constraint.coeffs.shape[0]):
+            # if var_to_index_dict[lin_constraint.osqp_vars[i]] == 193:
+            #     import ipdb; ipdb.set_trace()
             A_mat[
                 row_num, var_to_index_dict[lin_constraint.osqp_vars[i]]
             ] = lin_constraint.coeffs[i]
@@ -174,25 +178,26 @@ def optimize(
     A_mat_sparse = scipy.sparse.csc_matrix(A_mat)
 
     m = osqp.OSQP()
-    
+
     m.setup(
         P=P_mat_sparse,
         q=q_vec,
         A=A_mat_sparse,
-        sigma=1e-08,
+        rho=0.1,
+        sigma=5e-10,
         l=l_vec,
         u=u_vec,
-        # eps_abs = 1e-03,
-        eps_rel=1e-05,
+        eps_abs = 1e-05,
+        eps_rel=1e-08,
+        delta=1e-07,
         polish=True,
         adaptive_rho=False,
-        warm_start=False,
+        warm_start=True,
         verbose=False,
+        max_iter=9250,
     )
 
     solve_res = m.solve()
-
-    # import ipdb; ipdb.set_trace()
 
     return (solve_res, var_to_index_dict)
 

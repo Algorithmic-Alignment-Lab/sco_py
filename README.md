@@ -1,12 +1,23 @@
 # sco
-Sequential Convex Optimization
+sco is a lightweight Sequential Convex Optimization library for solving non-convex optimization problems. sco is intended for use with the OpenTAMP planning system. Currently, the library supports both Gurobi (license required) and OSQP (open-source, no license required!) as backend QP solvers.
 
-## Quickstart
-(ToDo: talk about installation)
+## Installation
+### From PyPI with pip
+Simply run `pip install sco`
+
+### Developer (from source)
+1. Clone this repository [from GitHub](https://github.com/Algorithmic-Alignment-Lab/sco)
+1. Install Poetry by following the instructions from [here](https://python-poetry.org/docs/#installation)
+1. Install all dependencies with `poetry install`.
+
+## Contributing
+sco is an open-source repository and as such, we welcome contributions from interested members of the community! If you have a new idea for a feature/contribution, do post in the ['Discussions' tab of the GitHub repository](https://github.com/Algorithmic-Alignment-Lab/sco/discussions) to get some feedback from the maintainers before starting development. In general, we recommend that you fork the main repository, create a new branch with your proposed change, then open a pull-request into the main repository. The main requirement for a new feature is that it cannot break the current test cases (see below for how to run our tests) unless this is unavoidable, and in this case, it should modify/introduce new tests as necessary. In particular, we welcome updates to documentation (docstrings, comments, etc. that make the code much more approachable for new users) and test cases!
 
 ### Running tests
-Simply run the `pytest` command from the directory root!
+If you do not have a license for Gurobi, then you can only run the OSQP tests. To do so, run:
+```
+pytest tests/sco_osqp/
+```
+If you do have a license for Gurobi, then you can run all tests with the `pytest` command.
 
-## TODO Log
-1. Write out better comments and documentation for what's going on here.
-1. Consider using pytest-cov to determine testing coverage.
+Note that our Contrinuous Integration (CI) setup only checks and reports status for OSQP tests. In general, if you are contributing a new feature, it *must* pass the existing OSQP tests and contribute new tests that test the new feature at least with OSQP (and preferably with Gurobi as well).
