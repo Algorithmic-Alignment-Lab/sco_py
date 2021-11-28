@@ -1,4 +1,4 @@
-[![continuous-integration](https://github.com/Algorithmic-Alignment-Lab/pysco/actions/workflows/ci.yaml/badge.svg)](https://github.com/Algorithmic-Alignment-Lab/sco/actions/workflows/ci.yaml)
+[![continuous-integration](https://github.com/Algorithmic-Alignment-Lab/pysco/actions/workflows/ci.yaml/badge.svg)](https://github.com/Algorithmic-Alignment-Lab/pysco/actions/workflows/ci.yaml)
 
 # pysco: Sequential Convex Optimization with Python
 pysco is a lightweight Sequential Convex Optimization library for solving non-convex optimization problems. pysco is intended for use with the OpenTAMP planning system. Currently, the library supports both [Gurobi](https://www.gurobi.com/) (license required) and [OSQP](https://osqp.org/) (open-source, no license required!) as backend QP solvers.
