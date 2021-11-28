@@ -4,7 +4,7 @@ import numpy as np
 import osqp
 import scipy
 
-from pysco.sco_osqp.variable import Variable
+from sco_py.sco_osqp.variable import Variable
 
 
 class OSQPVar(object):

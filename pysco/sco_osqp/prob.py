@@ -3,9 +3,9 @@ from collections import defaultdict
 
 import numpy as np
 
-import pysco.expr as sco_osqp_expr
-import pysco.sco_osqp.osqp_utils as osqp_utils
-from pysco.sco_osqp.osqp_utils import (OSQPLinearConstraint, OSQPLinearObj,
+import sco_py.expr as sco_osqp_expr
+import sco_py.sco_osqp.osqp_utils as osqp_utils
+from sco_py.sco_osqp.osqp_utils import (OSQPLinearConstraint, OSQPLinearObj,
                                  OSQPQuadraticObj, OSQPVar)
 
 # fmt: on

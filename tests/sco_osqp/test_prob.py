@@ -3,11 +3,11 @@ import unittest
 
 import numpy as np
 
-from pysco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
+from sco_py.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr, Expr,
                            HingeExpr, LEqExpr, QuadExpr)
-from pysco.sco_osqp.osqp_utils import OSQPLinearConstraint, OSQPVar
-from pysco.sco_osqp.prob import Prob
-from pysco.sco_osqp.variable import Variable
+from sco_py.sco_osqp.osqp_utils import OSQPLinearConstraint, OSQPVar
+from sco_py.sco_osqp.prob import Prob
+from sco_py.sco_osqp.variable import Variable
 
 # fmt: on
 
