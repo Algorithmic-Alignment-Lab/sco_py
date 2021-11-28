@@ -2,11 +2,11 @@ import unittest
 
 import numpy as np
 
-from sco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
-from sco.sco_osqp.osqp_utils import OSQPVar
-from sco.sco_osqp.prob import Prob
-from sco.sco_osqp.solver import Solver
-from sco.sco_osqp.variable import Variable
+from pysco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
+from pysco.sco_osqp.osqp_utils import OSQPVar
+from pysco.sco_osqp.prob import Prob
+from pysco.sco_osqp.solver import Solver
+from pysco.sco_osqp.variable import Variable
 
 solv = Solver()
 """

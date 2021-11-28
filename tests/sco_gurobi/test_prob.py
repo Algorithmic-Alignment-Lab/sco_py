@@ -4,10 +4,10 @@ import unittest
 import gurobipy as grb
 import numpy as np
 
-from sco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr,
+from pysco.expr import (AbsExpr, AffExpr, BoundExpr, CompExpr, EqExpr,
                              Expr, HingeExpr, LEqExpr, QuadExpr)
-from sco.sco_gurobi.prob import PosGRBVarManager, Prob
-from sco.sco_gurobi.variable import Variable
+from pysco.sco_gurobi.prob import PosGRBVarManager, Prob
+from pysco.sco_gurobi.variable import Variable
 
 # fmt: on
 

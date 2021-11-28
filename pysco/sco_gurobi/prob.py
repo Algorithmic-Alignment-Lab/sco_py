@@ -4,7 +4,7 @@ from collections import defaultdict
 import gurobipy as grb
 import numpy as np
 
-from sco.expr import (AbsExpr, AffExpr, CompExpr, EqExpr, HingeExpr,
+from pysco.expr import (AbsExpr, AffExpr, CompExpr, EqExpr, HingeExpr,
                              LEqExpr, QuadExpr)
 
 # fmt: on

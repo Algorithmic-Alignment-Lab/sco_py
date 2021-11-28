@@ -3,9 +3,9 @@ import unittest
 
 import numpy as np
 
-import sco.sco_osqp.osqp_utils as osqp_utils
-from sco.sco_osqp.osqp_utils import OSQPLinearObj, OSQPQuadraticObj, OSQPVar
-from sco.sco_osqp.variable import Variable
+import pysco.sco_osqp.osqp_utils as osqp_utils
+from pysco.sco_osqp.osqp_utils import OSQPLinearObj, OSQPQuadraticObj, OSQPVar
+from pysco.sco_osqp.variable import Variable
 
 # fmt: on
 

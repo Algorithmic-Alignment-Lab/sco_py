@@ -3,7 +3,7 @@ import unittest
 import gurobipy as grb
 import numpy as np
 
-from sco.sco_gurobi.variable import Variable
+from pysco.sco_gurobi.variable import Variable
 
 GRB = grb.GRB
 

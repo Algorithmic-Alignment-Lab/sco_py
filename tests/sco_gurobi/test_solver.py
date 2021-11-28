@@ -3,10 +3,10 @@ import unittest
 import gurobipy as grb
 import numpy as np
 
-from sco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
-from sco.sco_gurobi.prob import Prob
-from sco.sco_gurobi.solver import Solver
-from sco.sco_gurobi.variable import Variable
+from pysco.expr import AffExpr, BoundExpr, EqExpr, Expr, LEqExpr, QuadExpr
+from pysco.sco_gurobi.prob import Prob
+from pysco.sco_gurobi.solver import Solver
+from pysco.sco_gurobi.variable import Variable
 
 GRB = grb.GRB
 
