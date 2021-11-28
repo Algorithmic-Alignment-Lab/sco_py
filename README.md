@@ -5,7 +5,7 @@ sco_py is a lightweight Sequential Convex Optimization library for solving non-c
 
 ## Installation
 ### From PyPI with pip
-Simply run: `pip install sco_py`
+Simply run: `pip install sco-py`
 
 ### From GitHub with pip
 Simply run: `pip install git+https://github.com/Algorithmic-Alignment-Lab/sco_py.git`
