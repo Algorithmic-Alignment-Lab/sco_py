@@ -20,7 +20,7 @@ jobs:
       # Install poetry, then build and publish to PyPI
       #------------------------------------------------
     - name: Build and publish to pypi
-      uses: JRubics/poetry-publish@v1.6
+      uses: JRubics/poetry-publish@v1.9
       with:
         python_version: ${{ matrix.python-version }}
         poetry_version: ${{ matrix.poetry-version }}
