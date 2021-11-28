@@ -1,4 +1,4 @@
-[![continuous-integration](https://github.com/Algorithmic-Alignment-Lab/sco_py/actions/workflows/ci.yaml/badge.svg)](https://github.com/Algorithmic-Alignment-Lab/sco_py/actions/workflows/ci.yaml)
+[![continuous-integration](https://github.com/Algorithmic-Alignment-Lab/sco_py/actions/workflows/ci.yaml/badge.svg)](https://github.com/Algorithmic-Alignment-Lab/sco_py/actions/workflows/ci.yaml)[![PyPI version](https://badge.fury.io/py/sco-py.svg)](https://badge.fury.io/py/sco-py)
 
 # sco_py: Sequential Convex Optimization with Python
 sco_py is a lightweight Sequential Convex Optimization library for solving non-convex optimization problems. sco_py is intended for use with the OpenTAMP planning system. Currently, the library supports both [Gurobi](https://www.gurobi.com/) (license required) and [OSQP](https://osqp.org/) (open-source, no license required!) as backend QP solvers.
