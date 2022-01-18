@@ -109,7 +109,7 @@ def optimize(
     osqp_quad_objs: List[OSQPQuadraticObj],
     osqp_lin_objs: List[OSQPLinearObj],
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
-    eps_abs: float = 1e-06,
+    eps_abs: float = 1e-08,
     eps_rel: float = 1e-09,
     max_iter: int = 1000000,
 ):
@@ -117,6 +117,7 @@ def optimize(
     Calls the OSQP optimizer on the current QP approximation with a given
     penalty coefficient.
     """
+
     # First, we need to setup the problem as described here: https://osqp.org/docs/solver/index.html
     # Specifically, we need to start by constructing the x vector that contains all the
     # OSQPVars that are part of the QP. This will take the form of a mapping from OSQPVar to
