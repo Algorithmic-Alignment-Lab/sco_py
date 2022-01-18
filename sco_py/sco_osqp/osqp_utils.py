@@ -109,8 +109,8 @@ def optimize(
     osqp_quad_objs: List[OSQPQuadraticObj],
     osqp_lin_objs: List[OSQPLinearObj],
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
-    eps_abs: float = 1e-05,
-    eps_rel: float = 1e-08,
+    eps_abs: float = 1e-06,
+    eps_rel: float = 1e-09,
     max_iter: int = 1000000,
 ):
     """
