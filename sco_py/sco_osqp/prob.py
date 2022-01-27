@@ -143,7 +143,7 @@ class Prob(object):
 
         self.add_var(var)
 
-    def optimize(self, add_convexified_terms=False):
+    def optimize(self, add_convexified_terms=False, osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=int(1e08)):
         """
         Calls the OSQP optimizer on the current QP approximation with a given
         penalty coefficient. Note that add_convexified_terms is a convenience
@@ -157,6 +157,9 @@ class Prob(object):
                 self._osqp_quad_objs,
                 self._osqp_lin_objs,
                 self._osqp_lin_cnt_exprs,
+                osqp_eps_abs,
+                osqp_eps_rel,
+                osqp_max_iter
             )
         else:
             cnt_exprs = self._osqp_lin_cnt_exprs[:]
@@ -169,6 +172,9 @@ class Prob(object):
                 self._osqp_quad_objs,
                 self._osqp_lin_objs + self._osqp_penalty_exprs,
                 cnt_exprs,
+                osqp_eps_abs,
+                osqp_eps_rel,
+                osqp_max_iter
             )
 
         # If the solve failed, just return False
