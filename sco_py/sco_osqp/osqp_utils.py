@@ -105,13 +105,13 @@ class OSQPLinearConstraint(object):
 # @profile
 def optimize(
     osqp_vars: List[OSQPVar],
-    sco_vars: List[Variable],
+    _sco_vars: List[Variable],
     osqp_quad_objs: List[OSQPQuadraticObj],
     osqp_lin_objs: List[OSQPLinearObj],
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
     eps_abs: float = 1e-06,
     eps_rel: float = 1e-09,
-    max_iter: int = 10000000,
+    max_iter: int = int(1e08),
 ):
     """
     Calls the OSQP optimizer on the current QP approximation with a given
