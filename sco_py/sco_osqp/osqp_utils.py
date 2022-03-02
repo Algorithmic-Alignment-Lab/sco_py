@@ -113,7 +113,7 @@ def optimize(
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
     eps_abs: float = 1e-06,
     eps_rel: float = 1e-09,
-    max_iter: int = int(1e08),
+    max_iter: int = DEFAULT_MAX_ITER,
     verbose: bool = False,
 ):
     """

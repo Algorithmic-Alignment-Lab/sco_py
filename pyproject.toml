@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sco_py"
-version = "0.2.0"
+version = "0.3.0"
 description = "A Sequential Convex Optimization library for solving non-convex optimization problems. Intended for use with the OpenTAMP planning system."
 authors = ["Nishanth Kumar <njk@csail.mit.edu>", "Michael McDonald", "Christoper Lin", "Dylan Hadfield-Menell <dhm@csail.mit.edu>"]
 license = "MIT"
