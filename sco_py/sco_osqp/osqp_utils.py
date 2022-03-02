@@ -7,7 +7,7 @@ import scipy
 from sco_py.sco_osqp.variable import Variable
 
 
-DEFAULT_MAX_ITER = 100
+DEFAULT_MAX_ITER = int(1e04)
 
 class OSQPVar(object):
     """
