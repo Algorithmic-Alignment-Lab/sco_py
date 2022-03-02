@@ -3,6 +3,8 @@ import time
 import numpy as np
 
 
+DEFAULT_MAX_ITER = 100
+
 class Solver(object):
     """
     SCO Solver
@@ -26,7 +28,7 @@ class Solver(object):
         self.initial_penalty_coeff = 1e3
 
     def solve(self, prob, method=None, tol=None, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=int(1e08)):
+        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
         """
         Returns whether solve succeeded.
 
@@ -47,7 +49,7 @@ class Solver(object):
 
     # @profile
     def _penalty_sqp(self, prob, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=int(1e08)):
+        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
         """
         Return true is the penalty sqp method succeeds.
         Uses Penalty Sequential Quadratic Programming to solve the problem
@@ -84,7 +86,7 @@ class Solver(object):
 
     # @profile
     def _min_merit_fn(self, prob, penalty_coeff, trust_region_size, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=int(1e08)):
+        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
         """
         Minimize merit function for penalty sqp.
         Returns true if the merit function is minimized successfully.
@@ -105,8 +107,10 @@ class Solver(object):
                 if verbose:
                     print(("    trust region size: {0}".format(trust_region_size)))
                 prob.add_trust_region(trust_region_size)
-                _ = prob.optimize(osqp_eps_abs=osqp_eps_abs, osqp_eps_rel=osqp_eps_rel,\
-                        osqp_max_iter=osqp_max_iter)
+                _ = prob.optimize(osqp_eps_abs=osqp_eps_abs, 
+                                  osqp_eps_rel=osqp_eps_rel,\
+                                  osqp_max_iter=osqp_max_iter,
+                                  verbose=verbose)
                 model_merit = prob.get_approx_value(penalty_coeff)
                 model_merit_vec = prob.get_approx_value(penalty_coeff, True)
                 new_merit = prob.get_value(penalty_coeff)

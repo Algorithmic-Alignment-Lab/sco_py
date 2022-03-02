@@ -112,6 +112,7 @@ def optimize(
     eps_abs: float = 1e-06,
     eps_rel: float = 1e-09,
     max_iter: int = int(1e08),
+    verbose: bool = False,
 ):
     """
     Calls the OSQP optimizer on the current QP approximation with a given
@@ -204,8 +205,8 @@ def optimize(
 
     solve_res = m.solve()
 
-    if solve_res.info.status_val == -2:
-        raise RuntimeError("ERROR! OSQP Solver hit max iteration limit. Either reduce your tolerances or increase the max iterations!")
+    if solve_res.info.status_val == -2 and verbose:
+        print("ERROR! OSQP Solver hit max iteration limit. Either reduce your tolerances or increase the max iterations!")
 
     return (solve_res, var_to_index_dict)
 
