@@ -2,8 +2,8 @@ import time
 
 import numpy as np
 
+import sco_py.sco_osqp.osqp_utils as osqp_utils
 
-DEFAULT_MAX_ITER = 100
 
 class Solver(object):
     """
@@ -27,8 +27,14 @@ class Solver(object):
         self.initial_trust_region_size = 1
         self.initial_penalty_coeff = 1e3
 
-    def solve(self, prob, method=None, tol=None, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
+    def solve(self, 
+              prob, 
+              method=None, 
+              tol=None, 
+              verbose=False,
+              osqp_eps_abs=1e-06, 
+              osqp_eps_rel=1e-09, 
+              osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER):
         """
         Returns whether solve succeeded.
 
@@ -48,8 +54,12 @@ class Solver(object):
             raise Exception("This method is not supported.")
 
     # @profile
-    def _penalty_sqp(self, prob, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
+    def _penalty_sqp(self, 
+                     prob, 
+                     verbose=False,
+                     osqp_eps_abs=2e-06, 
+                     osqp_eps_rel=1e-09, 
+                     osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER):
         """
         Return true is the penalty sqp method succeeds.
         Uses Penalty Sequential Quadratic Programming to solve the problem
@@ -86,7 +96,7 @@ class Solver(object):
 
     # @profile
     def _min_merit_fn(self, prob, penalty_coeff, trust_region_size, verbose=False,\
-        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=DEFAULT_MAX_ITER):
+        osqp_eps_abs=1e-06, osqp_eps_rel=1e-09, osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER):
         """
         Minimize merit function for penalty sqp.
         Returns true if the merit function is minimized successfully.

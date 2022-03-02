@@ -7,6 +7,8 @@ import scipy
 from sco_py.sco_osqp.variable import Variable
 
 
+DEFAULT_MAX_ITER = 100
+
 class OSQPVar(object):
     """
     A class representing a variable within OSQP that will be used to construct the
