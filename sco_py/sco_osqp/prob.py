@@ -145,11 +145,12 @@ class Prob(object):
 
     def optimize(self, 
                  add_convexified_terms=False, 
-                 osqp_eps_abs=1e-06, 
-                 osqp_eps_rel=1e-09, 
-                 osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER, 
-                 rho: float = 1e-01,
-                 adaptive_rho: bool = True,
+                 osqp_eps_abs=osqp_utils.DEFAULT_EPS_ABS, 
+                 osqp_eps_rel=osqp_utils.DEFAULT_EPS_REL, 
+                 osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER,
+                 rho: float = osqp_utils.DEFAULT_RHO,
+                 adaptive_rho: bool = osqp_utils.DEFAULT_ADAPTIVE_RHO,
+                 sigma: float = osqp_utils.DEFAULT_SIGMA,
                  verbose=False):
         """
         Calls the OSQP optimizer on the current QP approximation with a given
@@ -169,6 +170,7 @@ class Prob(object):
                 osqp_max_iter,
                 rho=rho,
                 adaptive_rho=adaptive_rho,
+                sigma=sigma,
                 verbose=verbose,
             )
         else:
@@ -187,6 +189,7 @@ class Prob(object):
                 osqp_max_iter,
                 rho=rho,
                 adaptive_rho=adaptive_rho,
+                sigma=sigma,
                 verbose=verbose,
             )
 
@@ -363,7 +366,14 @@ class Prob(object):
         for lin_var, lin_coeff in zip(lin_vars.tolist(), lin_coeffs.tolist()):
             self._osqp_lin_objs.append(OSQPLinearObj(lin_var, lin_coeff))
 
-    def find_closest_feasible_point(self):
+    def find_closest_feasible_point(self,
+                                    osqp_eps_abs=osqp_utils.DEFAULT_EPS_ABS, 
+                                    osqp_eps_rel=osqp_utils.DEFAULT_EPS_REL, 
+                                    osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER,
+                                    rho: float = osqp_utils.DEFAULT_RHO,
+                                    adaptive_rho: bool = osqp_utils.DEFAULT_ADAPTIVE_RHO,
+                                    sigma: float = osqp_utils.DEFAULT_SIGMA,
+                                    ):
         """
         Finds the closest point (l2 norm) to the initialization that satisfies
         the linear constraints.
@@ -393,7 +403,13 @@ class Prob(object):
                         )
                     )
 
-        return self.optimize()
+        return self.optimize(osqp_eps_abs=osqp_eps_abs, 
+                             osqp_eps_rel=osqp_eps_rel, 
+                             osqp_max_iter=osqp_max_iter,
+                             rho=rho,
+                             adaptive_rho=adaptive_rho,
+                             sigma=sigma,
+                             )
 
     def update_obj(self, penalty_coeff=0.0):
         self._reset_osqp_objs()

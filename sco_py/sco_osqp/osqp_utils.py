@@ -8,6 +8,11 @@ from sco_py.sco_osqp.variable import Variable
 
 
 DEFAULT_MAX_ITER = int(1e05)
+DEFAULT_SIGMA = 5e-10
+DEFAULT_RHO = 1e-01
+DEFAULT_ADAPTIVE_RHO = True
+DEFAULT_EPS_ABS = 1e-06
+DEFAULT_EPS_REL = 1e-09
 
 class OSQPVar(object):
     """
@@ -111,11 +116,12 @@ def optimize(
     osqp_quad_objs: List[OSQPQuadraticObj],
     osqp_lin_objs: List[OSQPLinearObj],
     osqp_lin_cnt_exprs: List[OSQPLinearConstraint],
-    eps_abs: float = 1e-06,
-    eps_rel: float = 1e-09,
+    eps_abs: float = DEFAULT_EPS_ABS,
+    eps_rel: float = DEFAULT_EPS_REL,
     max_iter: int = DEFAULT_MAX_ITER,
-    rho: float = 1e-01,
-    adaptive_rho: bool = True,
+    rho: float = DEFAULT_RHO,
+    adaptive_rho: bool = DEFAULT_ADAPTIVE_RHO,
+    sigma: float = DEFAULT_SIGMA,
     verbose: bool = False,
 ):
     """
@@ -193,7 +199,7 @@ def optimize(
         q=q_vec,
         A=A_mat_sparse,
         rho=rho,
-        sigma=5e-10,
+        sigma=sigma,
         l=l_vec,
         u=u_vec,
         eps_abs=eps_abs,

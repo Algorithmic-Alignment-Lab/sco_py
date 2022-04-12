@@ -32,11 +32,13 @@ class Solver(object):
               method=None, 
               tol=None, 
               verbose=False,
-              osqp_eps_abs=1e-06, 
-              osqp_eps_rel=1e-09, 
+              osqp_eps_abs=osqp_utils.DEFAULT_EPS_ABS, 
+              osqp_eps_rel=osqp_utils.DEFAULT_EPS_REL, 
               osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER,
-              rho: float = 1e-01,
-              adaptive_rho: bool = True,):
+              rho: float = osqp_utils.DEFAULT_RHO,
+              adaptive_rho: bool = osqp_utils.DEFAULT_ADAPTIVE_RHO,
+              sigma: float = osqp_utils.DEFAULT_SIGMA,
+              ):
         """
         Returns whether solve succeeded.
 
@@ -52,7 +54,7 @@ class Solver(object):
         if method == "penalty_sqp":
             return self._penalty_sqp(prob, verbose=verbose,\
                 osqp_eps_abs=osqp_eps_abs, osqp_eps_rel=osqp_eps_rel, osqp_max_iter=osqp_max_iter,\
-                rho=rho, adaptive_rho=adaptive_rho)
+                rho=rho, adaptive_rho=adaptive_rho, sigma=sigma)
         else:
             raise Exception("This method is not supported.")
 
@@ -60,11 +62,12 @@ class Solver(object):
     def _penalty_sqp(self, 
                      prob, 
                      verbose=False,
-                     osqp_eps_abs=2e-06, 
-                     osqp_eps_rel=1e-09, 
+                     osqp_eps_abs=osqp_utils.DEFAULT_EPS_ABS, 
+                     osqp_eps_rel=osqp_utils.DEFAULT_EPS_REL, 
                      osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER,
-                     rho: float = 1e-01,
-                     adaptive_rho: bool = True,
+                     rho: float = osqp_utils.DEFAULT_RHO,
+                     adaptive_rho: bool = osqp_utils.DEFAULT_ADAPTIVE_RHO,
+                     sigma: float = osqp_utils.DEFAULT_SIGMA,
                      ):
         """
         Return true is the penalty sqp method succeeds.
@@ -83,7 +86,7 @@ class Solver(object):
                 prob, penalty_coeff, trust_region_size, verbose=verbose,\
                     osqp_eps_abs=osqp_eps_abs, osqp_eps_rel=osqp_eps_rel,\
                         osqp_max_iter=osqp_max_iter, \
-                        rho=rho, adaptive_rho=adaptive_rho
+                        rho=rho, adaptive_rho=adaptive_rho, sigma=sigma,
             )
             if verbose:
                 print("\n")
@@ -107,11 +110,12 @@ class Solver(object):
                       penalty_coeff, 
                       trust_region_size, 
                       verbose=False,
-                      osqp_eps_abs=1e-06, 
-                      osqp_eps_rel=1e-09, 
+                      osqp_eps_abs=osqp_utils.DEFAULT_EPS_ABS, 
+                      osqp_eps_rel=osqp_utils.DEFAULT_EPS_REL, 
                       osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER,
-                      rho: float = 1e-01,
-                      adaptive_rho: bool = True,
+                      rho: float = osqp_utils.DEFAULT_RHO,
+                      adaptive_rho: bool = osqp_utils.DEFAULT_ADAPTIVE_RHO,
+                      sigma: float = osqp_utils.DEFAULT_SIGMA,
                       ):
         """
         Minimize merit function for penalty sqp.
@@ -138,6 +142,7 @@ class Solver(object):
                                   osqp_max_iter=osqp_max_iter,
                                   rho=rho,
                                   adaptive_rho=adaptive_rho,
+                                  sigma=sigma,
                                   verbose=verbose)
                 model_merit = prob.get_approx_value(penalty_coeff)
                 model_merit_vec = prob.get_approx_value(penalty_coeff, True)
