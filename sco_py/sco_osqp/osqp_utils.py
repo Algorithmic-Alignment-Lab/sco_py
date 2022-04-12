@@ -192,7 +192,7 @@ def optimize(
         P=P_mat_sparse,
         q=q_vec,
         A=A_mat_sparse,
-        rho=1e2,#rho,
+        rho=rho,
         sigma=5e-10,
         l=l_vec,
         u=u_vec,
