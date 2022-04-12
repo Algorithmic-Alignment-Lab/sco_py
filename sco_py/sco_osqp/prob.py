@@ -148,6 +148,8 @@ class Prob(object):
                  osqp_eps_abs=1e-06, 
                  osqp_eps_rel=1e-09, 
                  osqp_max_iter=osqp_utils.DEFAULT_MAX_ITER, 
+                 rho: float = 1e-01,
+                 adaptive_rho: bool = True,
                  verbose=False):
         """
         Calls the OSQP optimizer on the current QP approximation with a given
@@ -165,6 +167,8 @@ class Prob(object):
                 osqp_eps_abs,
                 osqp_eps_rel,
                 osqp_max_iter,
+                rho=rho,
+                adaptive_rho=adaptive_rho,
                 verbose=verbose,
             )
         else:
@@ -181,6 +185,8 @@ class Prob(object):
                 osqp_eps_abs,
                 osqp_eps_rel,
                 osqp_max_iter,
+                rho=rho,
+                adaptive_rho=adaptive_rho,
                 verbose=verbose,
             )
 

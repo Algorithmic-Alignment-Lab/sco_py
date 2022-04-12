@@ -114,6 +114,8 @@ def optimize(
     eps_abs: float = 1e-06,
     eps_rel: float = 1e-09,
     max_iter: int = DEFAULT_MAX_ITER,
+    rho: float = 1e-01,
+    adaptive_rho: bool = True,
     verbose: bool = False,
 ):
     """
@@ -190,7 +192,7 @@ def optimize(
         P=P_mat_sparse,
         q=q_vec,
         A=A_mat_sparse,
-        rho=0.1,
+        rho=1e2,#rho,
         sigma=5e-10,
         l=l_vec,
         u=u_vec,
@@ -199,7 +201,7 @@ def optimize(
         delta=1e-07,
         # polish=True,
         polish=False,
-        adaptive_rho=False,
+        adaptive_rho=adaptive_rho,
         warm_start=True,
         verbose=False,
         max_iter=max_iter,
