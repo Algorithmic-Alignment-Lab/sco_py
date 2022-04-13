@@ -10,7 +10,7 @@ from sco_py.sco_osqp.variable import Variable
 DEFAULT_MAX_ITER = int(1e05)
 DEFAULT_SIGMA = 5e-10
 DEFAULT_RHO = 1e-01
-DEFAULT_ADAPTIVE_RHO = True
+DEFAULT_ADAPTIVE_RHO = False
 DEFAULT_EPS_ABS = 1e-06
 DEFAULT_EPS_REL = 1e-09
 
