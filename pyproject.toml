@@ -14,9 +14,13 @@ osqp = "^0.6.2"
 scipy = "^1.7.2"
 pytest = "^6.2.5"
 numdifftools = "^0.9.40"
+gurobipy = {version = ">=9.0.0", optional = true}
 
 [tool.poetry.dev-dependencies]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.extras]
+gurobi = ["gurobipy"]
